@@ -1,0 +1,4 @@
+CD\
+C:
+CD C:\SFT\MOVTO\ETIQUETA\
+copy C:\SFT\MOVTO\ETIQUETA\rotulo.txt LPT1
