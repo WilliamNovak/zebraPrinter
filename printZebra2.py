@@ -10,7 +10,11 @@ rgb_image = image.convert('1')
 
 rawImage = rgb_image.tobytes()
 width, height = rgb_image.size
-z.print_graphic(0, 0, width, height, rawImage, 1)
+
+commands = "\nN\nGW%d,%d,%d,%d,%s\nP%d\n"%(525, 350, width//8, height, rawImage, 1)
+# print(commands)
+
+# z.print_graphic(525, 350, width, height, rawImage, 1)
 
 # Specify the path to your text file
 file_path = './rotulo zebra/rotulo.txt'
@@ -30,7 +34,8 @@ file_contents += "^A0N,80^FT680,80^FD34^FS"
 file_contents += "^FT50,150^BY2^BCN,75,Y,N"
 file_contents += "^FD7891234348173^FS"
 
-#file_contents += "^XGE:1342318.GRF^FT525,350^FS"
+file_contents += "^XGE:1342318.GRF^FT525,350^FS"
+# file_contents += commands
 
 file_contents += "^A1N,20^FT10,220^FDCOR 1: MALHA ACTIVE - PRETO^FS"
 file_contents += "^A1N,20^FT10,245^FDELASTICO 1: _ - PRETO^FS"
@@ -41,4 +46,8 @@ file_contents += "^A1N,20^FT10,345^FDSOLADO: _ - BRANCO TOFU^FS"
 file_contents += "^PQ1"
 file_contents += "^XZ"
 
-# z.output(file_contents)
+# print(file_contents)
+
+listaArquivosE = "^XA^WDE:*.*^XZ"
+
+z.output(file_contents)
