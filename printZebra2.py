@@ -4,14 +4,13 @@ from PIL import Image
 z = Zebra('Zebra GC420t - ZPL')
 
 # Open the image file
-image = Image.open('./logotipo.png')
+image = Image.open('1342318.BMP')
 # Convert RGBA image to RGB
-rgb_image = image.convert('RGB')
-# Save the image as PCX format
-rgb_image.save('./logo.pcx', format='PCX')
+rgb_image = image.convert('1')
 
-graphic_name = 'logo'
-#z.store_graphic(graphic_name,'./logo.pcx')
+rawImage = rgb_image.tobytes()
+width, height = rgb_image.size
+z.print_graphic(0, 0, width, height, rawImage, 1)
 
 # Specify the path to your text file
 file_path = './rotulo zebra/rotulo.txt'
@@ -32,7 +31,6 @@ file_contents += "^FT50,150^BY2^BCN,75,Y,N"
 file_contents += "^FD7891234348173^FS"
 
 #file_contents += "^XGE:1342318.GRF^FT525,350^FS"
-#z.print_graphic(graphic_name,1)
 
 file_contents += "^A1N,20^FT10,220^FDCOR 1: MALHA ACTIVE - PRETO^FS"
 file_contents += "^A1N,20^FT10,245^FDELASTICO 1: _ - PRETO^FS"
@@ -43,4 +41,4 @@ file_contents += "^A1N,20^FT10,345^FDSOLADO: _ - BRANCO TOFU^FS"
 file_contents += "^PQ1"
 file_contents += "^XZ"
 
-z.output(file_contents)
+# z.output(file_contents)
