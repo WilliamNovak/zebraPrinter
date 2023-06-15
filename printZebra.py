@@ -12,6 +12,8 @@ grfCommands = grf.to_zpl(compression=3, quantity=1) # Gera o codigo ZPL da image
 indice = grfCommands.find('^XA')  # Encontra a posição da primeira ocorrência da sequência de caracteres
 grfImage = grfCommands[:indice]  # Extrai a substring do início até a posição da sequência
 
+qrCode = "^FO570,170^BQR,2,5,H,7^FDQA,www.google.com'^FS"
+
 # Comandos ZPL para imprimir a etiqueta
 file_contents  = grfImage # ZPL para gravar a imagem na memoria de impressora
 file_contents += "^XA"
@@ -24,6 +26,7 @@ file_contents += "^A0N,80^FT680,80^FD34^FS"
 file_contents += "^FT50,150^BY2^BCN,75,Y,N"
 file_contents += "^FD7891234348173^FS"
 file_contents += "^XGR:TESTE.GRF^FT525,350^FS" # ZPL para imprimir a imagem
+# file_contents += qrCode
 file_contents += "^A1N,20^FT10,220^FDCOR 1: MALHA ACTIVE - PRETO^FS"
 file_contents += "^A1N,20^FT10,245^FDELASTICO 1: _ - PRETO^FS"
 file_contents += "^A1N,20^FT10,270^FDELASTICO 2: _ - PRETO^FS"
