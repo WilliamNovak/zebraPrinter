@@ -1,5 +1,6 @@
 from zebra import Zebra
 from PIL import Image
+import os.path
 
 z = Zebra('Zebra GC420t - ZPL')
 
@@ -11,7 +12,16 @@ rgb_image = image.convert('1')
 rawImage = rgb_image.tobytes()
 width, height = rgb_image.size
 
-commands = "\nN\nGW%d,%d,%d,%d,%s\nP%d\n"%(525, 350, width//8, height, rawImage, 1)
+rgb_image.save('teste.pcx','PCX')
+
+name = 'teste'
+filename = 'teste.pcx'
+
+commands = '\nGK"%s"\n'%name
+commands += 'GK"%s"\n'%name
+size = os.path.getsize(filename)
+commands += 'GM"%s"%s\n'%(name,size)
+# commands = "\nN\nGW%d,%d,%d,%d,%s\nP%d\n"%(525, 350, width//8, height, rawImage, 1)
 # print(commands)
 
 # z.print_graphic(525, 350, width, height, rawImage, 1)
@@ -34,7 +44,7 @@ file_contents += "^A0N,80^FT680,80^FD34^FS"
 file_contents += "^FT50,150^BY2^BCN,75,Y,N"
 file_contents += "^FD7891234348173^FS"
 
-file_contents += "^XGE:1342318.GRF^FT525,350^FS"
+file_contents += "^XGE:teste.PCX^FT525,350^FS"
 # file_contents += commands
 
 file_contents += "^A1N,20^FT10,220^FDCOR 1: MALHA ACTIVE - PRETO^FS"
@@ -50,4 +60,7 @@ file_contents += "^XZ"
 
 listaArquivosE = "^XA^WDE:*.*^XZ"
 
-z.output(file_contents)
+# z.output(commands)
+# z.output(open(filename,'rb').read())
+
+# z.output(file_contents)
