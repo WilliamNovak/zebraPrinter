@@ -1,9 +1,23 @@
 from zebra import Zebra
 from zplgrf import GRF
+from PIL import Image
 
 z = Zebra('Zebra GC420t - ZPL') # Seleciona a impressora
 
-with open('1342318.BMP', 'rb') as image: # Abre o arquivo da image com permissao de leitura no formato de bytes
+image = Image.open('1342318.BMP') # Open the image file
+    
+original_width, original_height = image.size # Get the original width and height
+        
+aspect_ratio = original_width / original_height # Calculate the aspect ratio
+
+calculated_height = int(256 / aspect_ratio) # Calculate the new height based on the aspect ratio and the new width
+
+resized_image = image.resize((256, calculated_height)) # Resize the image using the new width and calculated height
+
+pcxImage = resized_image.convert('1') # Convert image to B&W format
+pcxImage.save('1342318.jpg') # Save the resized image
+
+with open('1342318.jpg', 'rb') as image: # Abre o arquivo da image com permissao de leitura no formato de bytes
     grf = GRF.from_image(image.read(), 'TESTE') # Cria um objeto GRF da imagem com o nome TESTE
 
 grf.optimise_barcodes()
